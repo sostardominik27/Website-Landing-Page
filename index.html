@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurevia Studio | Modern Digital Presence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07111f;
+  --bg-2:#0b1628;
+  --surface:rgba(255,255,255,0.05);
+  --surface-strong:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.1);
+  --text:#f8fbff;
+  --muted:#9fb0c8;
+  --muted-2:#7f91ab;
+  --accent:#8ec5ff;
+  --accent-2:#c7d2fe;
+  --accent-soft:rgba(142,197,255,0.14);
+  --shadow:0 24px 70px rgba(0,0,0,0.32);
+  --radius:28px;
+  --max:1200px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(142,197,255,0.14), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(199,210,254,0.10), transparent 24%),
+    linear-gradient(180deg, #07111f 0%, #081322 45%, #050c16 100%);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.65;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(circle at center, black 35%, transparent 80%);
+  pointer-events:none;
+  z-index:-1;
+}
+.container{max-width:var(--max);margin:auto;padding:0 20px}
+img,svg{max-width:100%;height:auto}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease, transform .8s ease}
+.reveal.show{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:.1s}
+.reveal.delay-2{transition-delay:.2s}
+.reveal.delay-3{transition-delay:.3s}
+
+/* CSS LOGO */
+.css-logo{
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+}
+.css-logo-left,
+.css-logo-right{
+  position: absolute;
+  bottom: 0;
+  width: 12px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #dbeafe 0%, #8ec5ff 55%, #4d7fe8 100%);
+}
+.css-logo-left{ left: 8px; transform: skewX(-18deg); }
+.css-logo-right{ right: 8px; transform: skewX(18deg); }
+.css-logo-cross{
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 18px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#dbeafe,#8ec5ff);
+  transform: rotate(-12deg);
+}
+.css-logo-pixel{
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #8ec5ff;
+  border-radius: 2px;
+}
+.css-logo-pixel.p1{top:4px;right:2px}
+.css-logo-pixel.p2{top:0;right:8px}
+.css-logo-pixel.p3{top:8px;right:8px}
+
+/* nav */
+nav{
+  position:sticky;
+  top:0;
+  z-index:40;
+  backdrop-filter:blur(18px);
+  background:rgba(6,14,26,.58);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  min-height:82px;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  color:var(--text);
+  flex-wrap:wrap;
+}
+.brand-block{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand-text strong{
+  display:block;
+  font-size:18px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent-2)
+}
+.brand-meta{display:flex;flex-direction:column;gap:4px}
+.brand-meta span{
+  font-size:12px;
+  color:var(--accent-2);
+  letter-spacing:.06em;
+  text-transform:uppercase
+}
+.nav-links{
+  display:flex;
+  gap:24px;
+  list-style:none;
+  flex-wrap:wrap;
+}
+.nav-links a{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+  transition:.25s ease;
+}
+.nav-links a:hover{color:var(--text)}
+
+nav.scrolled{
+  background:rgba(6,14,26,.78);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  border-bottom-color:rgba(255,255,255,.09);
+}
+.logo{
+  transition:transform .25s ease;
+}
+.logo:hover{
+  transform:translateY(-1px);
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 24px;
+  border-radius:18px;
+  text-decoration:none;
+  font-weight:600;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{
+  background:linear-gradient(135deg,#dbeafe,#8ec5ff);
+  color:#06111f;
+  box-shadow:0 16px 30px rgba(142,197,255,.18);
+}
+.btn-secondary{
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+/* hero */
+.hero{padding:58px 0 104px;position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:999px;filter:blur(24px);opacity:.55;pointer-events:none}
+.orb-1{width:290px;height:290px;background:rgba(142,197,255,.14);top:70px;right:8%;animation:floatOrb 8s ease-in-out infinite}
+.orb-2{width:220px;height:220px;background:rgba(199,210,254,.10);left:2%;bottom:12px;animation:floatOrb 9s ease-in-out infinite -2s}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:46px;
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  color:#d9e8fb;
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.eyebrow::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#dbeafe,#8ec5ff);
+  box-shadow:0 0 0 6px rgba(142,197,255,.12);
+}
+.hero h1{
+  margin-top:22px;
+  font-size:clamp(42px,7vw,78px);
+  line-height:.96;
+  letter-spacing:-.045em;
+  max-width:740px;
+}
+.gradient-text{
+  background:linear-gradient(135deg,#fff 15%,#dbeafe 52%,#8ec5ff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  color:transparent;
+}
+.hero p{margin-top:24px;max-width:620px;font-size:18px;color:var(--muted)}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  max-width:720px;
+  margin-top:34px;
+}
+.metric{
+  padding:20px;
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+.metric strong{display:block;font-size:28px;margin-bottom:4px}
+.metric span{font-size:14px;color:var(--muted)}
+
+/* showcase */
+.showcase{position:relative;animation:floatCard 7s ease-in-out infinite}
+.showcase-shell{
+  padding:20px;
+  border-radius:34px;
+  background:linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+}
+.showcase-frame{
+  border-radius:28px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#0c1729,#081220);
+  border:1px solid rgba(255,255,255,.06);
+}
+.frame-top{
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+}
+.frame-dots{display:flex;gap:8px}
+.frame-dots span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.28)}
+.frame-url{width:42%;height:34px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06)}
+.frame-body{
+  padding:28px;
+  min-height:550px;
+  background:
+    radial-gradient(circle at top right, rgba(142,197,255,.1), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+}
+.mini-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:30px;
+}
+.mini-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.mini-links{
+  display:flex;
+  gap:18px;
+  font-size:13px;
+  color:var(--muted);
+  flex-wrap:wrap;
+}
+.mini-hero{
+  display:grid;
+  grid-template-columns:1fr .8fr;
+  gap:22px;
+  align-items:center;
+  margin-bottom:20px;
+}
+.mini-title{height:22px;width:80%;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.94),rgba(255,255,255,.28));margin-bottom:12px}
+.mini-title.large{width:96%;height:52px;border-radius:16px;background:linear-gradient(90deg,rgba(255,255,255,.98),rgba(142,197,255,.62))}
+.mini-line{height:13px;width:100%;border-radius:10px;background:rgba(255,255,255,.12);margin-bottom:10px}
+.mini-line.short{width:82%}
+.mini-btns{display:flex;gap:12px;margin-top:18px}
+.mini-btn{width:120px;height:42px;border-radius:14px;background:linear-gradient(135deg,#dbeafe,#8ec5ff)}
+.mini-btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.mini-visual{
+  height:220px;
+  border-radius:24px;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  position:relative;
+  overflow:hidden;
+}
+.mini-visual::before,.mini-visual::after{
+  content:"";
+  position:absolute;
+  border-radius:24px;
+  background:linear-gradient(135deg, rgba(142,197,255,.34), rgba(255,255,255,.08));
+}
+.mini-visual::before{width:180px;height:180px;top:18px;left:20px}
+.mini-visual::after{width:92px;height:92px;right:18px;bottom:18px}
+.mini-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:22px;
+}
+.mini-card{
+  min-height:130px;
+  padding:18px;
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+.mini-card .bar{height:12px;border-radius:10px;background:rgba(255,255,255,.14);margin-bottom:10px}
+.mini-card .bar.accent{background:rgba(142,197,255,.48);width:70%}
+
+.floating-note,.floating-score{
+  position:absolute;
+  background:rgba(8,18,33,.74);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(14px);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 18px 38px rgba(0,0,0,.2);
+}
+.floating-note{left:-24px;bottom:36px;width:220px;animation:floatNote 6s ease-in-out infinite}
+.floating-score{right:-26px;top:44px;width:180px;animation:floatNote 6s ease-in-out infinite -2s}
+.floating-note strong,.floating-score strong{display:block;font-size:16px;margin-bottom:6px}
+.floating-note p,.floating-score p{font-size:13px;color:var(--muted)}
+.score{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:56px;
+  height:56px;
+  border-radius:18px;
+  margin-bottom:10px;
+  background:linear-gradient(135deg,#dbeafe,#8ec5ff);
+  color:#06111f;
+  font-weight:800;
+  font-size:22px;
+  box-shadow:0 10px 28px rgba(142,197,255,.22);
+}
+
+/* sections */
+.trusted{padding:26px 0 8px}
+.trusted-wrap{
+  padding:18px 24px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  display:grid;
+  grid-template-columns:1.1fr 2fr;
+  gap:18px;
+  align-items:center;
+  background:rgba(255,255,255,.03);
+}
+.trusted-wrap p{color:var(--muted);font-size:14px}
+.logo-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.logo-chip{
+  padding:14px 12px;
+  text-align:center;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  color:#d5deeb;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+section{padding:110px 0;position:relative;scroll-margin-top:110px}
+.section-header{max-width:760px;margin:0 auto 56px;text-align:center}
+.pill{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:#dbeafe;
+  border:1px solid rgba(142,197,255,.2);
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+.section-header h2{
+  font-size:clamp(34px,4.8vw,54px);
+  line-height:1.03;
+  letter-spacing:-.035em;
+  margin-bottom:16px;
+}
+.section-header p{font-size:18px;color:var(--muted)}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.service-card{
+  padding:28px;
+  border-radius:28px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(142,197,255,.35);box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.service-icon{
+  width:54px;height:54px;border-radius:18px;display:grid;place-items:center;margin-bottom:18px;
+  background:linear-gradient(135deg,#dbeafe,#8ec5ff);color:#06111f;font-size:20px;font-weight:800
+}
+.service-card h3{font-size:24px;margin-bottom:12px}
+.service-card p{color:var(--muted);margin-bottom:16px}
+.service-card ul{list-style:none;display:grid;gap:10px}
+.service-card li{position:relative;padding-left:22px;color:#dde6f4;font-size:14px}
+.service-card li::before{content:'•';position:absolute;left:0;top:-1px;color:var(--accent);font-size:20px;line-height:1}
+
+.split-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch}
+.panel{
+  border-radius:30px;
+  padding:34px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.panel:hover{transform:translateY(-4px);border-color:rgba(142,197,255,.24);box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.panel h3{font-size:30px;margin-bottom:14px;line-height:1.1}
+.panel p{font-size:17px;color:var(--muted);margin-bottom:28px}
+.feature-list{display:grid;gap:14px}
+.feature-item{
+  display:flex;
+  gap:14px;
+  padding:16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+}
+.feature-mark{
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:var(--accent-soft);
+  color:#dbeafe;
+  font-weight:800;
+}
+.feature-item strong{display:block;margin-bottom:4px;font-size:16px}
+.feature-item span{font-size:14px;color:var(--muted)}
+.stats-board{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.stats-box{
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+.stats-box strong{display:block;font-size:34px;margin-bottom:8px}
+.stats-box span{font-size:14px;color:var(--muted)}
+
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.process-card{
+  border-radius:26px;
+  padding:28px 24px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+  position:relative;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.process-card:hover{transform:translateY(-4px);border-color:rgba(142,197,255,.24);box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.process-number{
+  width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#dbeafe,#8ec5ff);
+  color:#06111f;display:grid;place-items:center;font-weight:800;margin-bottom:18px
+}
+.process-card h3{font-size:22px;margin-bottom:10px}
+.process-card p{font-size:14px;color:var(--muted)}
+
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.testimonial{
+  padding:28px;
+  border-radius:28px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08);
+}
+.stars{font-size:16px;letter-spacing:.2em;color:#cfe4ff;margin-bottom:16px}
+.testimonial p{color:#dbe4f2;margin-bottom:20px}
+.client{display:flex;align-items:center;gap:14px}
+.avatar{
+  width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#dbeafe,#8ec5ff);
+  color:#06111f;display:grid;place-items:center;font-weight:800
+}
+.client span{display:block;font-size:13px;color:var(--muted)}
+
+.cta-wrap{
+  padding:56px;
+  border-radius:34px;
+  text-align:center;
+  background:linear-gradient(135deg, rgba(142,197,255,.16), rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:var(--shadow);
+}
+.cta-wrap h2{
+  font-size:clamp(34px,4.5vw,52px);
+  line-height:1.02;
+  letter-spacing:-.035em;
+  margin-bottom:16px;
+}
+.cta-wrap p{font-size:18px;color:var(--muted);max-width:760px;margin:0 auto 28px}
+.cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:30px}
+.contact-card{text-decoration:none;align-items:center}
+.contact-card strong{color:var(--accent-2)}
+.contact-card span{color:var(--accent-2)}
+.contact-card svg{width:20px;height:20px;display:block}
+.contact-card .feature-mark{font-size:0}
+.contact-card:hover{border-color:rgba(142,197,255,.28);transform:translateY(-2px)}
+
+footer{padding:34px 0 46px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:26px;border-top:1px solid rgba(255,255,255,.08)}
+.footer-inner p,.footer-links a{font-size:14px;color:var(--muted)}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{text-decoration:none}
+
+
+.mini-preview-scroll{
+  animation: miniScroll 7s ease-in-out infinite;
+  transform-origin: top center;
+}
+@keyframes miniScroll{
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  50% { transform: translateY(-22px); }
+  75% { transform: translateY(-10px); }
+}
+
+
+#contact.highlight {
+  animation: contactGlow 1.2s ease;
+}
+@keyframes contactGlow{
+  0%{box-shadow:0 0 0 rgba(142,197,255,0)}
+  50%{box-shadow:0 0 40px rgba(142,197,255,0.25)}
+  100%{box-shadow:0 0 0 rgba(142,197,255,0)}
+}
+
+/* animations */
+@keyframes floatOrb{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-16px) translateX(10px)}}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes floatNote{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* tablet */
+
+@media (max-width:1100px){
+  .hero-grid,.split-grid{grid-template-columns:1fr}
+  .services-grid,.testimonials-grid{grid-template-columns:repeat(2,1fr)}
+  .process-grid{grid-template-columns:repeat(2,1fr)}
+  .showcase{max-width:720px;margin:0 auto}
+}
+
+/* mobile / tablet */
+@media (max-width:860px){
+    .nav-inner{
+    position:relative;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+    padding:14px 0;
+    min-height:auto;
+  }
+
+  .logo{width:calc(100% - 56px)}
+  .brand-block{gap:8px}
+  .brand-text strong{font-size:16px}
+  .brand-meta span{font-size:11px}
+
+  .nav-links{
+    display:flex;
+    width:100%;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  
+  .nav-links li{list-style:none}
+  .nav-links a{
+    display:inline-block;
+    font-size:13px;
+    padding:8px 10px;
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+  }
+
+  .nav-inner > .btn-primary{
+    width:100%;
+    justify-content:center;
+  }
+
+  .hero{
+    padding:36px 0 72px;
+  }
+  .hero-grid{
+    gap:24px;
+  }
+  .hero h1{
+    font-size:clamp(32px,9vw,46px);
+    line-height:1.02;
+  }
+  .hero p{
+    font-size:15px;
+    max-width:100%;
+  }
+  .eyebrow{
+    font-size:11px;
+    padding:8px 12px;
+  }
+
+  .metrics{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .metric{
+    padding:16px;
+  }
+  .metric strong{
+    font-size:22px;
+  }
+
+  .showcase-shell{
+    padding:12px;
+    border-radius:24px;
+  }
+  .showcase-frame{
+    border-radius:20px;
+  }
+  .frame-top{
+    height:48px;
+    padding:0 14px;
+  }
+  .frame-url{
+    width:52%;
+    height:28px;
+  }
+  .frame-body{
+    padding:16px;
+    min-height:auto;
+  }
+
+  .mini-nav{
+    gap:10px;
+    margin-bottom:18px;
+    align-items:flex-start;
+  }
+  .mini-links{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    font-size:11px;
+  }
+  .mini-hero{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .mini-visual{
+    height:160px;
+  }
+  .mini-cards{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .mini-card{
+    min-height:86px;
+    padding:14px;
+  }
+
+  .floating-note,
+  .floating-score{
+    position:static;
+    width:100%;
+    margin-top:12px;
+  }
+
+  section{
+    padding:72px 0;
+  }
+  .section-header{
+    margin-bottom:36px;
+  }
+  .section-header h2{
+    font-size:clamp(28px,7vw,38px);
+  }
+  .section-header p{
+    font-size:15px;
+  }
+
+  .services-grid,
+  .split-grid,
+  .process-grid,
+  .testimonials-grid,
+  .stats-board,
+  .logo-row,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-card,
+  .panel,
+  .process-card,
+  .testimonial{
+    padding:20px;
+    border-radius:22px;
+  }
+
+  .cta-wrap{
+    padding:28px 18px;
+    border-radius:24px;
+  }
+  .cta-wrap h2{
+    font-size:clamp(28px,7vw,38px);
+  }
+  .cta-wrap p{
+    font-size:15px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+/* small phones */
+@media (max-width:560px){
+  .container{padding:0 14px}
+  nav{backdrop-filter:blur(10px)}
+
+  .logo{gap:10px}
+  .css-logo{
+    width:36px;
+    height:36px;
+    flex:0 0 36px;
+  }
+  .css-logo-left,
+  .css-logo-right{
+    width:10px;
+    height:34px;
+  }
+  .css-logo-left{left:6px}
+  .css-logo-right{right:6px}
+  .css-logo-cross{
+    left:8px;
+    right:8px;
+    top:15px;
+    height:6px;
+  }
+
+  .brand-block{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+  }
+  .brand-text strong{
+    font-size:15px;
+    letter-spacing:.12em;
+  }
+  .brand-meta span{
+    font-size:10px;
+    line-height:1.2;
+  }
+
+  .btn{
+    width:100%;
+    padding:13px 18px;
+  }
+  .hero-actions,
+  .cta-actions{
+    flex-direction:column;
+  }
+
+  .hero{
+    padding:28px 0 58px;
+  }
+  .hero h1{
+    font-size:31px;
+  }
+  .hero p,
+  .section-header p,
+  .cta-wrap p{
+    font-size:14px;
+  }
+
+  .mini-brand strong{font-size:13px!important}
+  .mini-brand span{font-size:10px!important}
+  .mini-visual{height:130px}
+  .logo-chip{padding:10px 8px;font-size:11px}
+}
+
+/* Contact alignment fix */
+.contact-card{
+  justify-content: center;
+  text-align: center;
+}
+.contact-card div{
+  text-align: center;
+}
+
+@media (max-width:860px){
+  .contact-card{
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .contact-card div{
+    text-align: left;
+  }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="container nav-inner">
+    <a class="logo" href="#hero">
+      <div class="css-logo" aria-hidden="true">
+        <span class="css-logo-left"></span>
+        <span class="css-logo-right"></span>
+        <span class="css-logo-cross"></span>
+        <span class="css-logo-pixel p1"></span>
+        <span class="css-logo-pixel p2"></span>
+        <span class="css-logo-pixel p3"></span>
+      </div>
+      <div class="brand-block">
+        <div class="brand-text">
+          <strong>Aurevia</strong>
+        </div>
+        <div class="brand-meta">
+          <span>Clean websites that make an impact</span>
+        </div>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="site-menu">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#results">Results</a></li>
+            <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="#contact" class="btn btn-primary">Start Your Website</a>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow reveal show">Modern websites for everyone</div>
+      <h1 class="reveal show delay-1">Build a <span class="gradient-text">digital presence</span> that feels refined and works smoothly everywhere.</h1>
+      <p class="reveal show delay-2">Aurevia Studio creates polished websites with responsive layouts, smooth user experience, and performance-focused development for businesses that want to stand out online.</p>
+      <div class="hero-actions reveal show delay-3">
+        <a href="#contact" class="btn btn-primary">Book a Project</a>
+        <a href="#services" class="btn btn-secondary">Explore Services</a>
+      </div>
+      <div class="metrics reveal show delay-3">
+        <div class="metric"><strong>Responsive</strong><span>Optimized for desktop, tablet, and mobile</span></div>
+        <div class="metric"><strong>Fast</strong><span>Focused on speed, clarity, and performance</span></div>
+        <div class="metric"><strong>Refined</strong><span>Elegant design systems with modern UI</span></div>
+      </div>
+    </div>
+
+    <div class="showcase reveal show delay-2">
+      <div class="showcase-shell">
+        <div class="showcase-frame">
+          <div class="frame-top">
+            <div class="frame-dots"><span></span><span></span><span></span></div>
+            <div class="frame-url"></div>
+          </div>
+          <div class="frame-body mini-preview-scroll">
+            <div class="mini-nav">
+              <div class="mini-brand">
+
+  <div class="css-logo" style="width:28px;height:28px;flex:0 0 28px;">
+    <span class="css-logo-left" style="width:8px;height:26px;left:5px;"></span>
+    <span class="css-logo-right" style="width:8px;height:26px;right:5px;"></span>
+    <span class="css-logo-cross" style="left:7px;right:7px;top:12px;height:5px;"></span>
+    <span class="css-logo-pixel p1" style="width:3px;height:3px;top:2px;right:1px;"></span>
+    <span class="css-logo-pixel p2" style="width:3px;height:3px;top:0;right:5px;"></span>
+    <span class="css-logo-pixel p3" style="width:3px;height:3px;top:5px;right:5px;"></span>
+  </div>
+
+  <div>
+    <strong style="display:block;font-size:14px;letter-spacing:.1em;text-transform:uppercase;">
+      Aurevia
+    </strong>
+    <span style="display:block;font-size:10px;color:var(--accent-2);letter-spacing:.05em;">
+      Clean websites that make an impact
+    </span>
+  </div>
+
+</div>
+              <div class="mini-links"><span>Home</span><span>Services</span><span>Work</span><span>Contact</span></div>
+            </div>
+
+            <div class="mini-hero">
+              <div>
+                <div class="mini-title"></div>
+                <div class="mini-title large"></div>
+                <div class="mini-line"></div>
+                <div class="mini-line short"></div>
+                <div class="mini-btns">
+                  <div class="mini-btn"></div>
+                  <div class="mini-btn ghost"></div>
+                </div>
+              </div>
+              <div class="mini-visual"></div>
+            </div>
+
+            <div class="mini-cards">
+              <div class="mini-card"><div class="bar accent"></div><div class="bar"></div><div class="bar"></div></div>
+              <div class="mini-card"><div class="bar accent"></div><div class="bar"></div><div class="bar"></div></div>
+              <div class="mini-card"><div class="bar accent"></div><div class="bar"></div><div class="bar"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="floating-note">
+        <strong>Responsive by default</strong>
+        <p>Every section is designed to adapt cleanly across laptop, tablet, and mobile screens.</p>
+      </div>
+
+      <div class="floating-score">
+        <div class="score">A+</div>
+        <strong>Clean visual system</strong>
+        <p>Modern composition, layered depth, and polished UI details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trusted reveal show">
+  <div class="container trusted-wrap">
+    <p>Built with the same thoughtful standards used in modern business, portfolio, and service-based websites.</p>
+    <div class="logo-row">
+      <div class="logo-chip">Studio</div>
+      <div class="logo-chip">Consulting</div>
+      <div class="logo-chip">Creative</div>
+      <div class="logo-chip">Technology</div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="reveal show">
+  <div class="container">
+    <div class="section-header">
+      <span class="pill">Services</span>
+      <h2>Everything needed for a clean, modern, high-converting website.</h2>
+      <p>From modern landing pages to full business websites, Aurevia delivers design-focused development that looks refined and works smoothly on every device.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card">
+        <div class="service-icon">01</div>
+        <h3>Landing Pages</h3>
+        <p>High-end landing pages designed to communicate clearly, build trust, and turn visitors into leads or customers.</p>
+        <ul>
+          <li>Modern hero sections and balanced layouts</li>
+          <li>Responsive design for all screen sizes</li>
+          <li>Clear calls to action and conversion flow</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">02</div>
+        <h3>Business Websites</h3>
+        <p>Professional multi-section websites that present your brand with clarity, credibility, and a polished online presence.</p>
+        <ul>
+          <li>Service, about, contact, and showcase sections</li>
+          <li>Consistent visual identity and structure</li>
+          <li>Modern UI with clean code architecture</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">03</div>
+        <h3>Optimization & Refinement</h3>
+        <p>Improve an existing website with better performance, smoother responsiveness, stronger layout balance, and cleaner UX.</p>
+        <ul>
+          <li>Bug fixes and layout improvements</li>
+          <li>Performance-focused front-end cleanup</li>
+          <li>Better readability and user experience</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="reveal show">
+  <div class="container split-grid">
+    <div class="panel">
+      <h3>Built to feel refined, not just look good.</h3>
+      <p>A strong website needs more than visuals. It should feel polished in motion, clear in structure, and effortless across every screen size. That is why the focus is always on both design quality and front-end execution.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-mark">✓</div>
+          <div><strong>Responsive experience</strong><span>Layouts adapt fluidly from wide desktop screens to compact mobile devices.</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-mark">✓</div>
+          <div><strong>Modern visual hierarchy</strong><span>Every section is structured for readability, flow, and a clean presentation.</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-mark">✓</div>
+          <div><strong>Performance-minded code</strong><span>Clean front-end structure helps websites load faster and feel smoother.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Why businesses choose a better website.</h3>
+      <p>A refined digital presence builds trust faster, creates a better first impression, and makes your brand feel more established the moment someone visits your site.</p>
+      <div class="stats-board">
+        <div class="stats-box"><strong>100%</strong><span>Mobile-friendly, responsive design approach</span></div>
+        <div class="stats-box"><strong>Clean</strong><span>Structured layouts with polished spacing and UI</span></div>
+        <div class="stats-box"><strong>Fast</strong><span>Optimized visual flow and front-end performance</span></div>
+        <div class="stats-box"><strong>Modern</strong><span>Clean visual direction suitable for serious brands</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="reveal show">
+  <div class="container">
+    <div class="section-header">
+      <span class="pill">Process</span>
+      <h2>A simple process designed for clear communication and strong results.</h2>
+      <p>Each project follows a structured approach so the final website feels intentional, professional, and ready to represent your brand online.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="process-number">1</div>
+        <h3>Discovery</h3>
+        <p>Understand your goals, target audience, and the type of online presence your brand needs.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-number">2</div>
+        <h3>Structure</h3>
+        <p>Plan the layout, content flow, and visual hierarchy so the site feels clear and polished.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-number">3</div>
+        <h3>Development</h3>
+        <p>Build the website with responsive front-end code, polished styling, and smooth interactions.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-number">4</div>
+        <h3>Refinement</h3>
+        <p>Review details, improve performance, and fine-tune the final experience across devices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact" class="reveal show">
+  <div class="container">
+    <div class="cta-wrap">
+      <h2>Need a website that looks professional on every device?</h2>
+      <p>Aurevia Studio builds modern websites with responsive layouts, refined visual systems, and smooth user experience — ideal for brands that want a stronger digital presence.</p>
+      
+      <div class="contact-grid">
+        <a href="https://wa.me/385994565758" class="feature-item contact-card">
+          <div class="feature-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 11.5C20 16.19 16.19 20 11.5 20C10.05 20 8.68 19.63 7.48 18.97L4 20L5.08 16.65C4.39 15.42 4 13.99 4 12.5C4 7.81 7.81 4 12.5 4C17.19 4 21 7.81 21 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div><strong>WhatsApp</strong><br><span>+385 0994565758</span></div>
+        </a>
+        <a href="mailto:sostardominik27@gmail.com" class="feature-item contact-card">
+          <div class="feature-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7.5L12 13.5L20 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="3.5" y="6" width="17" height="12" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <div><strong>Gmail</strong><br><span>sostardominik27@gmail.com</span></div>
+        </a>
+        <a href="sms:+385994565758" class="feature-item contact-card">
+          <div class="feature-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 4.75H17C18.24 4.75 19.25 5.76 19.25 7V17C19.25 18.24 18.24 19.25 17 19.25H7C5.76 19.25 4.75 18.24 4.75 17V7C4.75 5.76 5.76 4.75 7 4.75Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M8 15.25H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div><strong>SMS</strong><br><span>+385 0994565758</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Aurevia Studio. Modern digital experiences built with clarity and care.</p>
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const isMobile = window.innerWidth <= 860;
+const nav = document.querySelector('nav');
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+function handleScroll() {
+  if (window.scrollY > 8) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+}
+handleScroll();
+window.addEventListener('scroll', handleScroll, { passive: true });
+
+if (isMobile) {
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.add('show');
+  });
+} else {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+document.querySelectorAll('a[href="#contact"]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    setTimeout(()=>{
+      document.querySelector('#contact')?.classList.add('highlight');
+      setTimeout(()=>{
+        document.querySelector('#contact')?.classList.remove('highlight');
+      },1200);
+    },400);
+  });
+});
+</script>
+
+</body>
+</html>
